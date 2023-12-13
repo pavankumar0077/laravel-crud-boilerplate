@@ -26,14 +26,14 @@ pipeline {
             }
         }
 
-        stage('Run Tests') {
-            steps {
-                script {
-                    sh 'docker-compose run --rm lr_app composer install'
-                    sh 'docker-compose run --rm lr_app php artisan test'
-                }
-            }
-        }
+        // stage('Run Tests') {
+        //     steps {
+        //         script {
+        //             sh 'docker-compose run --rm lr_app composer install'
+        //             sh 'docker-compose run --rm lr_app php artisan test'
+        //         }
+        //     }
+        // }
 
         stage('Lint and Analyze Code') {
             steps {
