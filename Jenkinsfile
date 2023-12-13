@@ -20,26 +20,13 @@ pipeline {
             }
         }
 
-    stages {
-        stage('Debug') {
+        stage('Build Docker Image') {
             steps {
                 script {
-                    echo "DOCKER_REPO_NAME: ${params['DOCKER_REPO_NAME']}"
-                    echo "IMAGE_NAME: ${params['IMAGE_NAME']}"
-                    echo "CONTAINER_NAME: ${params['CONTAINER_NAME']}"
+                    sh "docker-compose build "
                 }
             }
         }
-
-       stage('Build Docker Image') {
-            steps {
-                script {
-                    sh "docker-compose build ${params['DOCKER_REPO_NAME']}/${params['IMAGE_NAME']}"
-                }
-            }
-        }
-
-
 
         stage('Push Docker Image') {
             steps {
