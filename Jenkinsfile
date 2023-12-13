@@ -47,12 +47,13 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
-                    withDockerRegistry([credentialsId: 'docker-cred', url: 'https://index.docker.io/v1/', toolName: 'docker']) {
+                    withDockerRegistry([credentialsId: 'Docker-cred', url: 'https://index.docker.io/v1/', toolName: 'docker']) {
                         sh "docker-compose push"
                     }
                 }
             }
         }
+
 
         stage('Run Application') {
             steps {
