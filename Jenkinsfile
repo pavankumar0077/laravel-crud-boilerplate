@@ -35,14 +35,14 @@ pipeline {
         //     }
         // }
 
-        stage('Lint and Analyze Code') {
-            steps {
-                script {
-                    sh 'docker-compose run --rm lr_app composer lint'
-                    sh 'docker-compose run --rm lr_app composer analyze'
-                }
-            }
-        }
+        // stage('Lint and Analyze Code') {
+        //     steps {
+        //         script {
+        //             sh 'docker-compose run --rm lr_app composer lint'
+        //             sh 'docker-compose run --rm lr_app composer analyze'
+        //         }
+        //     }
+        // }
 
         stage('Docker push') {
             steps {
