@@ -4,9 +4,9 @@ pipeline {
     parameters {
         choice(name: 'action', choices: 'create\ndelete', description: 'Choose create/Destroy')
         string(defaultValue: '52.201.212.127', description: 'Host IP Address', name: 'HOST_IP')
-        string(defaultValue: 'pavan0077', description: 'Docker Repository Name', name: 'Docker Repository Name')
-        string(defaultValue: 'php-rest', description: 'Image Name', name: 'Image Name')
-        string(defaultValue: 'php-rest', description: 'Container Name', name: 'Container Name')
+        string(defaultValue: 'pavan0077', description: 'Docker Repository Name', name: 'DOCKER_REPO_NAME')
+        string(defaultValue: 'php-rest', description: 'Image Name', name: 'IMAGE_NAME')
+        string(defaultValue: 'php-rest', description: 'Container Name', name: 'CONTAINER_NAME')
     }
 
     stages {
@@ -20,7 +20,6 @@ pipeline {
             }
         }
 
-       
         stage('Debug') {
             steps {
                 script {
@@ -31,12 +30,10 @@ pipeline {
             }
         }
 
-
-
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh "docker-compose build "
+                    sh "docker-compose build"
                 }
             }
         }
@@ -45,7 +42,7 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry([credentialsId: 'Docker-cred', url: 'https://index.docker.io/v1/', toolName: 'docker']) {
-                        sh "docker-compose push ${DOCKER_REPO_NAME}/${IMAGE_NAME}"
+                        sh "docker-compose push ${params['DOCKER_REPO_NAME']}/${params['IMAGE_NAME']}"
                     }
                 }
             }
@@ -58,6 +55,7 @@ pipeline {
                 }
             }
         }
+    }
 
     post {
         always {
@@ -66,6 +64,4 @@ pipeline {
             }
         }
     }
-    }
 }
-
