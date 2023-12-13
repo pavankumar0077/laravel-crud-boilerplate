@@ -23,8 +23,8 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh "docker-compose build"
-                    sh "docker-compose build "
+                    // sh "docker-compose build"
+                    sh "docker-compose build -t ${DOCKER_REPO_NAME}/${IMAGE_NAME}"
                 }
             }
         }
