@@ -4,7 +4,7 @@ pipeline {
     parameters {
         choice(name: 'action', choices: 'create\ndelete', description: 'Choose create/Destroy')
         string(defaultValue: '52.201.212.127', description: 'Host IP Address', name: 'HOST_IP')
-        string(defaultValue: 'laravel-crud-boilerplate', description: 'Docker Repository Name', name: 'pavan0077')
+        string(defaultValue: 'pavan0077', description: 'Docker Repository Name', name: 'docker-repo')
         string(defaultValue: 'php-rest', description: 'Image Name', name: 'php-rest')
         string(defaultValue: 'php-rest', description: 'Container Name', name: 'php-rest')
     }
