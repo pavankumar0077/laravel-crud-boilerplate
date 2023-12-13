@@ -1,13 +1,13 @@
 pipeline {
     agent any
 
-    parameters {
-        choice(name: 'action', choices: 'create\ndelete', description: 'Choose create/Destroy')
+        parameters {
         string(defaultValue: '52.201.212.127', description: 'Host IP Address', name: 'HOST_IP')
-        string(defaultValue: 'pavan0077', description: 'Docker Repository Name', name: 'DOCKER_REPO_NAME')
-        string(defaultValue: 'php-rest', description: 'Image Name', name: 'IMAGE_NAME')
-        string(defaultValue: 'php-rest', description: 'Container Name', name: 'CONTAINER_NAME')
+        string(defaultValue: 'laravel-crud-boilerplate', description: 'Docker Repository Name', name: 'pavan0077')
+        string(defaultValue: 'laravel-crud-boilerplate', description: 'Image Name', name: 'php-rest')
+        string(defaultValue: 'lr_app', description: 'Container Name', name: 'CONTAINER_NAME')
     }
+
 
     stages {
         stage('Checkout') {
@@ -20,16 +20,6 @@ pipeline {
             }
         }
 
-        stage('Debug') {
-            steps {
-                script {
-                    echo "DOCKER_REPO_NAME: ${params['DOCKER_REPO_NAME']}"
-                    echo "IMAGE_NAME: ${params['IMAGE_NAME']}"
-                    echo "CONTAINER_NAME: ${params['CONTAINER_NAME']}"
-                }
-            }
-        }
-
         stage('Build Docker Image') {
             steps {
                 script {
@@ -38,15 +28,44 @@ pipeline {
             }
         }
 
+        // stage('Run Tests') {
+        //     steps {
+        //         script {
+        //             sh 'docker-compose run --rm lr_app composer install'
+        //             sh 'docker-compose run --rm lr_app php artisan test'
+        //         }
+        //     }
+        // }
+
+        // stage('Lint and Analyze Code') {
+        //     steps {
+        //         script {
+        //             sh 'docker-compose run --rm lr_app composer lint'
+        //             sh 'docker-compose run --rm lr_app composer analyze'
+        //         }
+        //     }
+        // }
+
         stage('Push Docker Image') {
             steps {
                 script {
                     withDockerRegistry([credentialsId: 'Docker-cred', url: 'https://index.docker.io/v1/', toolName: 'docker']) {
-                        sh "docker-compose push ${params['DOCKER_REPO_NAME']}/${params['IMAGE_NAME']}"
+                        sh "docker-compose push"
                     }
                 }
             }
         }
+
+        // stage('Push Docker Image') {
+        //     steps {
+        //         script {
+        //             withDockerRegistry([credentialsId: 'Docker-cred', url: 'https://index.docker.io/v1/', toolName: 'docker']) {
+        //                 sh "docker-compose push ${DOCKER_REPO_NAME}/${IMAGE_NAME}"
+        //             }
+        //         }
+        //     }
+        // }
+
 
         stage('Run Application') {
             steps {
@@ -57,11 +76,11 @@ pipeline {
         }
     }
 
-post {
-    always {
-        script {
-            sh "docker-compose down"
+    post {
+        always {
+            script {
+                sh "docker-compose down"
+            }
         }
     }
-}
 }
