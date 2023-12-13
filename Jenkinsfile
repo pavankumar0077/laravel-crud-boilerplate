@@ -3,7 +3,7 @@ pipeline {
 
         parameters {
         string(defaultValue: '52.201.212.127', description: 'Host IP Address', name: 'HOST_IP')
-        string(defaultValue: 'laravel-crud-boilerplate', description: 'Docker Repository Name', name: 'pavan0077')
+        string(defaultValue: 'pavan0077', description: 'Docker Repository Name', name: 'Docker-Repo-Name')
         string(defaultValue: 'laravel-crud-boilerplate', description: 'Image Name', name: 'php-rest')
         string(defaultValue: 'lr_app', description: 'Container Name', name: 'CONTAINER_NAME')
     }
