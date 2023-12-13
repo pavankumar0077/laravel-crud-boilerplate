@@ -20,13 +20,14 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
+       stage('Build Docker Image') {
             steps {
                 script {
-                    sh "docker-compose build"
+                    sh "docker-compose build ${params['DOCKER_REPO_NAME']}/${params['IMAGE_NAME']}"
                 }
             }
         }
+
 
         stage('Push Docker Image') {
             steps {
