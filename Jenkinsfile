@@ -24,6 +24,7 @@ pipeline {
             steps {
                 script {
                     sh "docker-compose build"
+                    sh "docker-compose build "
                 }
             }
         }
@@ -50,7 +51,7 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry([credentialsId: 'Docker-cred', url: 'https://index.docker.io/v1/', toolName: 'docker']) {
-                        sh "docker-compose push"
+                        sh "docker-compose push ${DOCKER_REPO_NAME}/${IMAGE_NAME}"
                     }
                 }
             }
