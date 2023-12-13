@@ -1,11 +1,13 @@
 pipeline {
     agent any
 
-    parameters {
+        parameters {
         string(defaultValue: '52.201.212.127', description: 'Host IP Address', name: 'HOST_IP')
-        string(defaultValue: 'laravel-crud-boilerplate', description: 'Image Name', name: 'IMAGE_NAME')
+        string(defaultValue: 'laravel-crud-boilerplate', description: 'Docker Repository Name', name: 'pavan0077')
+        string(defaultValue: 'laravel-crud-boilerplate', description: 'Image Name', name: 'php-rest')
         string(defaultValue: 'lr_app', description: 'Container Name', name: 'CONTAINER_NAME')
     }
+
 
     stages {
         stage('Checkout') {
@@ -44,11 +46,21 @@ pipeline {
         //     }
         // }
 
+        // stage('Push Docker Image') {
+        //     steps {
+        //         script {
+        //             withDockerRegistry([credentialsId: 'Docker-cred', url: 'https://index.docker.io/v1/', toolName: 'docker']) {
+        //                 sh "docker-compose push"
+        //             }
+        //         }
+        //     }
+        // }
+
         stage('Push Docker Image') {
             steps {
                 script {
                     withDockerRegistry([credentialsId: 'Docker-cred', url: 'https://index.docker.io/v1/', toolName: 'docker']) {
-                        sh "docker-compose push"
+                        sh "docker-compose push ${DOCKER_REPO_NAME}/${IMAGE_NAME}"
                     }
                 }
             }
