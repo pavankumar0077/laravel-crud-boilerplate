@@ -59,13 +59,13 @@ pipeline {
             }
         }
 
-        post {
-            always {
-                script {
-                    sh "docker-compose down"
-                }
+    post {
+        always {
+            script {
+                sh "docker-compose down"
             }
         }
+    }
     }
 }
 
