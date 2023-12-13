@@ -4,7 +4,7 @@ pipeline {
     parameters {
         string(defaultValue: '52.201.212.127', description: 'Host IP Address', name: 'HOST_IP')
         string(defaultValue: 'pavan0077', description: 'Docker Repository Name', name: 'Docker-Repo-Name')
-        string(defaultValue: 'laravel-crud-boilerplate', description: 'Image Name', name: 'php-rest')
+        string(defaultValue: 'php-rest', description: 'Image Name', name: 'Image-name')
         string(defaultValue: 'lr_app', description: 'Container Name', name: 'CONTAINER_NAME')
     }
 
@@ -22,7 +22,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh "docker-compose build -t ${params['Docker-Repo-Name']}/${params['php-rest']}"
+                    sh "docker-compose build -t ${params['Docker-Repo-Name']}/${params['Image-name']}"
                 }
             }
         }
@@ -31,7 +31,7 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry([credentialsId: 'Docker-cred', url: 'https://index.docker.io/v1/', toolName: 'docker']) {
-                        sh "docker-compose push ${params['Docker-Repo-Name']}/${params['php-rest']}"
+                        sh "docker-compose push ${params['Docker-Repo-Name']}/${params['Image-name']}"
                     }
                 }
             }
