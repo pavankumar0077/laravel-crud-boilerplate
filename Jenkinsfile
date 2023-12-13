@@ -29,6 +29,7 @@ pipeline {
                     echo "CONTAINER_NAME: ${params['CONTAINER_NAME']}"
                 }
             }
+        }
 
 
 
@@ -57,7 +58,6 @@ pipeline {
                 }
             }
         }
-    }
 
     post {
         always {
@@ -67,3 +67,4 @@ pipeline {
         }
     }
 }
+
