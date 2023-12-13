@@ -44,11 +44,10 @@ pipeline {
         //     }
         // }
 
-        stage('Docker push') {
+        stage('Push Docker Image') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'docker-cred', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                    script {
-                        sh "docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}"
+                script {
+                    withDockerRegistry([credentialsId: 'docker-cred', url: 'https://index.docker.io/v1/', toolName: 'docker']) {
                         sh "docker-compose push"
                     }
                 }
