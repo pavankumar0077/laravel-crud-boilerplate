@@ -27,15 +27,15 @@ pipeline {
             }
         }
 
-        stage('Push Docker Image') {
-            steps {
-                script {
-                    withDockerRegistry([credentialsId: 'Docker-cred', url: 'https://index.docker.io/v1/', toolName: 'docker']) {
-                        sh "docker-compose push ${params['Docker-Repo-Name']}/${params['Image-name']}"
-                    }
-                }
-            }
-        }
+        // stage('Push Docker Image') {
+        //     steps {
+        //         script {
+        //             withDockerRegistry([credentialsId: 'Docker-cred', url: 'https://index.docker.io/v1/', toolName: 'docker']) {
+        //                 sh "docker-compose push ${params['Docker-Repo-Name']}/${params['Image-name']}"
+        //             }
+        //         }
+        //     }
+        // }
 
         stage('Run Application') {
             steps {
