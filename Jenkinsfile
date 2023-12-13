@@ -5,7 +5,7 @@ pipeline {
         string(defaultValue: '52.201.212.127', description: 'Host IP Address', name: 'HOST_IP')
         string(defaultValue: 'pavan0077', description: 'Docker Repository Name', name: 'Docker-Repo-Name')
         string(defaultValue: 'php-rest', description: 'Image Name', name: 'Image-name')
-        string(defaultValue: 'lr_app', description: 'Container Name', name: 'CONTAINER_NAME')
+        // string(defaultValue: 'lr_app', description: 'Container Name', name: 'CONTAINER_NAME')
     }
 
     stages {
