@@ -46,8 +46,9 @@ pipeline {
 
         stage('Docker push') {
             steps {
-                script {
-                    withDockerRegistry(credentialsId: 'docker-cred') {
+                withCredentials([usernamePassword(credentialsId: 'docker-cred', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                    script {
+                        sh "docker login -u ${DOCKER_USERNAME} -p ${DOCKER_PASSWORD}"
                         sh "docker-compose push"
                     }
                 }
